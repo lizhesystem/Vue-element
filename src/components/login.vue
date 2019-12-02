@@ -81,7 +81,7 @@
                     // 登录成功后把token储存到sessionStorage里。
                     // sessionStorage和localStorage的区别在于：sessionStorage浏览器关闭就失效了，不会一直储存
                     window.sessionStorage.setItem('token', res.data.token);
-                    this.$router.push('/home')  // 路由跳转-- 导航至/home
+                    this.$router.push('/home')  // 路由跳转-- 导航至/home ($router有很多方法 $router.push  $router.go(-1) 之前学的,可以总结下！)
                 })
             }
         }
