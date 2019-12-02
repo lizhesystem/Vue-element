@@ -73,10 +73,15 @@
 
                     // 2：使用async/await方式获取,因为await得到的是posmise对象。
                     //  解构对象重命名
-                    const {data: res} = await this.axios.post('login', this.loginForm);
-                    // eslint-disable-next-line no-console
-                    if (res.mata.status !== 200) return console.log("登录失败")
+                    const {data: res} = await this.axios.post('login.vue', this.loginForm);
+                    if (res.meta.status !== 200) return this.$message.error("登录失败:" + res.meta.msg);
 
+                    this.$message.success("登陆成功");
+
+                    // 登录成功后把token储存到sessionStorage里。
+                    // sessionStorage和localStorage的区别在于：sessionStorage浏览器关闭就失效了，不会一直储存
+                    window.sessionStorage.setItem('token', res.meta.token);
+                    this.$router.push('/home')  // 路由跳转-- 导航至/home
                 })
             }
         }
