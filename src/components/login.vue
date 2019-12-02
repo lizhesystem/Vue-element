@@ -47,11 +47,11 @@
                     // required代表必填,trigger代表失去焦点的时候效验
                     username: [
                         {required: true, message: '用户名不能为空', trigger: 'blur'},
-                        {min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur'}
+                        {min: 2, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur'}
                     ],
                     password: [
                         {required: true, message: '密码不能为空', trigger: 'blur'},
-                        {min: 3, max: 10, message: '密码长度不符', trigger: 'blur'}
+                        {min: 2, max: 10, message: '密码长度不符', trigger: 'blur'}
                     ],
                 }
             }
@@ -73,14 +73,14 @@
 
                     // 2：使用async/await方式获取,因为await得到的是posmise对象。
                     //  解构对象重命名
-                    const {data: res} = await this.axios.post('login.vue', this.loginForm);
+                    const {data: res} = await this.axios.post('login', this.loginForm);
                     if (res.meta.status !== 200) return this.$message.error("登录失败:" + res.meta.msg);
 
                     this.$message.success("登陆成功");
 
                     // 登录成功后把token储存到sessionStorage里。
                     // sessionStorage和localStorage的区别在于：sessionStorage浏览器关闭就失效了，不会一直储存
-                    window.sessionStorage.setItem('token', res.meta.token);
+                    window.sessionStorage.setItem('token', res.data.token);
                     this.$router.push('/home')  // 路由跳转-- 导航至/home
                 })
             }
