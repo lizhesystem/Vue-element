@@ -91,7 +91,8 @@
 <!--scoped代表当前组件的样式-->
 <style lang="scss" scoped>
     .login_container {
-        background-color: #2b4b6b;
+        /*background-color: #2b4b6b;*/
+        background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
         height: 100%;
         display: flex;
         justify-content: center; /* 水平居中 */
