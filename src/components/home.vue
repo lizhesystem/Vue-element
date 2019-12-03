@@ -17,6 +17,7 @@
             <el-aside :width="MenuFlag? '64px' : '200px' ">
                 <!--侧边栏区域-->
                 <!--router属性设置为true,我们点击二级菜单的时候，就会根据菜单的index属性进行路由跳转,看下面: :index=" '/' + inner.path"-->
+                <!--default-active属性来设置当前激活菜单的index,视频的方式把给所有的二级菜单添加点击事件，并将path值作为方法的参数,path存到sessionStorage里-->
                 <el-menu
                         :default-active="$route.path"
                         class="el-menu-vertical-demo"
