@@ -45,7 +45,7 @@
                             <!--二级菜单模板区域-->
                             <template slot="title">
                                 <!--图标-->
-                                <i class="el-icon-location"></i>
+                                <i class="el-icon-menu"></i>
                                 <!--文本-->
                                 <span>{{ inner.authName }}</span>
                             </template>
@@ -81,7 +81,7 @@
                 },
                 MenuFlag: false,
                 // 定义空字符串,用来点logo折叠菜单
-                emptyArr: ''
+                emptyArr: []
             }
         },
         created() {
@@ -99,14 +99,10 @@
                 this.MenuFlag = !this.MenuFlag
             },
             // 点击logo跳转到首页,为啥不用go是因为go会刷新页面这个push不会刷新,但是有个小bug在router.js处理下就好了
-            // 原本是个空字符串,点击给他个空数组,default-openeds属性看是空数组就给折叠了- -。卡了好久
+            // 默认给他个空[],点击给他个空数组,几点的时候default-openeds属性看是空数组就给折叠了- -。卡了好久
             gobackHome() {
                 this.$router.push('/home');
                 this.emptyArr = [];
-            },
-            handleClose(key, keyPath) {
-                // eslint-disable-next-line no-console
-                console.log(key, keyPath);
             },
             // 调API获取菜单栏的方法
             async getMenuList() {
