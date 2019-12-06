@@ -55,16 +55,20 @@
                     :total="total">
             </el-pagination>
         </el-card>
-        <!--新增商品分类区域-->
+        <!--新增商品分类的弹出框-->
         <el-dialog
                 title="添加分类"
-                :visible.sync="addCateDialogVisible">
+                :visible.sync="addCateDialogVisible" width="40%">
             <!--添加分类的表单-->
-            <el-form :model="addCateForm" :rules="addCateFormRules" ref="addCateFormRef">
+            <el-form :model="addCateForm" :rules="addCateFormRules" ref="addCateFormRef" label-width="100px">
                 <el-form-item label="分类名称：" prop="cat_name">
-                    <el-input v-model="addCateForm.cat_name"></el-input>
+                    <el-input  v-model="addCateForm.cat_name"></el-input>
                 </el-form-item>
                 <el-form-item label="父级分类：">
+                    <!-- options 用来指定数据源 -->
+                    <!-- props 用来指定配置对象 -->
+                    <el-cascader expand-trigger="hover" :options="parentCateList" :props="cascaderProps" v-model="selectedKeys" @change="parentCateChanged" clearable change-on-select>
+                    </el-cascader>
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
@@ -108,6 +112,13 @@
                     cat_pid: 0,
                     // 分类的等级，默认要添加的是1级分类
                     cat_level: 0
+                },
+                // 表单验证规则对象
+                addCateFormRules: {
+                    // required代表必填,trigger代表失去焦点的时候效验
+                    cat_name: [
+                        {required: true, message: '分类名不能为空', trigger: 'blur'},
+                    ]
                 }
             }
         },
@@ -135,6 +146,10 @@
             // 打开新增分类窗口的方法
             showAddCateDialog() {
                 this.addCateDialogVisible = true;
+            },
+            // 新增分类的方法
+            addCate(){
+
             }
         }
     }

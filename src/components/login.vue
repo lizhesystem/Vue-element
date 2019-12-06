@@ -20,7 +20,7 @@
                 <!--密码-->
                 <el-form-item prop="password">
                     <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima"
-                              type="password"></el-input>
+                              type="password" @keyup.enter.native="login"></el-input>
                 </el-form-item>
                 <!--按钮区域-->
                 <el-form-item class="form_button">
@@ -62,6 +62,7 @@
                 this.$refs.loginFormRef.resetFields();
             },
             login() {
+
                 this.$refs.loginFormRef.validate(async valid => {
                     if (!valid) return;
 

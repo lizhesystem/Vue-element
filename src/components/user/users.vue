@@ -112,7 +112,7 @@
                 <p>当前的用户：{{userInfo.username}}</p>
                 <p>当前的角色：{{userInfo.role_name}}</p>
                 <p>分配新角色：
-                    <el-select v-model="selectedRoleId" placeholder="请选择">
+                    <el-select v-model="selectedRoleId" placeholder="请选择" value="">
                         <el-option v-for="item in rolesList" :key="item.id" :label="item.roleName" :value="item.id">
                         </el-option>
                     </el-select>
@@ -307,7 +307,9 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).catch(err => err);
-
+                // this.$confirm的值confirmResult是个promise对象。使用await async可以得到值.
+                // 当用户点击确定,confirmResult的值为confirm
+                // 当用户取消删除,会抛出一个异常 使用catch接受值为字符串cancel，下面就根据值进行判断
                 if (confirmResult !== 'confirm') {
                     return this.$message.info("已取消删除")
                 }
