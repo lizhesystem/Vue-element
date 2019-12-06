@@ -13,6 +13,9 @@ import './assets/fonts/iconfont.css'
 // 导入axios,axios不是一个插件所以不能Vue.use使用，vue-axios是个插件。
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+// 导入三方的table-tree插件
+import TreeTable   from 'vue-table-with-tree-grid'
+Vue.component('tree-table', TreeTable);
 
 Vue.use(VueAxios, axios);
 // axios公共基路径，以后所有的请求都会在前面加上这个路径
