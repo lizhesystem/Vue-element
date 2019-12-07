@@ -77,12 +77,12 @@
             </el-table>
         </el-card>
         <!--弹出的添加角色的弹出框-->
-        <el-dialog title="新增角色" :visible.sync="addDialogVisible" @close="addDialogCloses">
+        <el-dialog title="新增角色" :visible.sync="addDialogVisible" @close="addDialogCloses" width="50%">
             <el-form :model="Roles" :rules="addRoleRules" ref="addRoleRef">
-                <el-form-item label="角色名称" prop="roleName">
+                <el-form-item label="角色名称" prop="roleName" label-width="100px">
                     <el-input v-model="Roles.roleName"></el-input>
                 </el-form-item>
-                <el-form-item label="角色描述" prop="roleDesc">
+                <el-form-item label="角色描述" prop="roleDesc" label-width="100px">
                     <el-input v-model="Roles.roleDesc"></el-input>
                 </el-form-item>
             </el-form>
