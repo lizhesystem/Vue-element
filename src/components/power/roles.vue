@@ -18,14 +18,14 @@
             >
                 <el-table-column type="expand">
                     <!--添加展开列,这里查看文档发现作用域插槽可以用v-slot表示-->
-                    <template v-slot="scope">
+                    <template slot-scope="scope">
                         <!--row里面包含2个col，24网格分为5和19，样式的话根据索引判断是否头上的横线，还有居中显示的样式-->
                         <el-row :class="['bdbottom',index === 0 ? 'bdtop':'' ,'vcenter']"
                                 v-for="(item1,index) in scope.row.children" :key="item1.id">
                             <!--渲染一级权限-->
                             <el-col :span="5">
                                 <!--一级权限的tag-->
-                                <el-tag closable @close="removerightsByid(scope.row,item1.id)">
+                                <el-tag closable  @close="RemoveRightsByid(scope.row,item1.id)">
                                     {{ item1.authName}}
                                 </el-tag>
                                 <i class="el-icon-caret-right"></i>
@@ -35,14 +35,14 @@
                                 <el-row :class="[i2 === 0 ? '':'bdtop','vcenter']"
                                         v-for="(item2,i2) in item1.children" :key="item2.id">
                                     <el-col :span="6">
-                                        <el-tag closable @close="removerightsByid(scope.row,item2.id)" type="success">
+                                        <el-tag closable @close="RemoveRightsByid(scope.row,item2.id)" type="success">
                                             {{ item2.authName}}
                                         </el-tag>
                                         <i class="el-icon-caret-right"></i>
                                     </el-col>
                                     <!--三级权限不用row,直接在tag里循环-->
                                     <el-col :span="18">
-                                        <el-tag closable @close="removerightsByid(scope.row,item3.id)" type="warning"
+                                        <el-tag closable @close="RemoveRightsByid(scope.row,item3.id)" type="warning"
                                                 v-for="item3 in item2.children" :key="item3.id">
                                             {{ item3.authName}}
                                         </el-tag>
@@ -238,7 +238,7 @@
                 this.$refs.editRoleRef.resetFields();
             },
             // 删除角色权限的方法，role是角色的所有数据,里面有角色的id。rightid是当前的权限id
-            async removeRightsByid(role, rightId) {
+            async RemoveRightsByid(role, rightId) {
                 const confirmResult = await this.$confirm("请问是否要删除该权限", '删除提示', {
                     confirmButtonText: '确定删除',
                     cancelButtonText: '取消',
