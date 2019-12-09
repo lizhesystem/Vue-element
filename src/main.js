@@ -14,7 +14,8 @@ import './assets/fonts/iconfont.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 // 导入三方的table-tree插件
-import TreeTable   from 'vue-table-with-tree-grid'
+import TreeTable from 'vue-table-with-tree-grid'
+
 Vue.component('tree-table', TreeTable);
 
 Vue.use(VueAxios, axios);
@@ -32,6 +33,20 @@ axios.interceptors.request.use(config => {
     return config
 });
 
+// 公共的过滤器
+Vue.filter('dateFormat', function (originVal) {
+    const dt = new Date(originVal);
+
+    const y = dt.getFullYear();
+    const m = (dt.getMonth() + 1 + '').padStart(2, '0');
+    const d = (dt.getDate() + '').padStart(2, '0');
+
+    const hh = (dt.getHours() + '').padStart(2, '0');
+    const mm = (dt.getMinutes() + '').padStart(2, '0');
+    const ss = (dt.getSeconds() + '').padStart(2, '0');
+
+    return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+});
 
 // 消息提示的环境配置，设置为开发环境或者生产环境
 Vue.config.productionTip = false;
