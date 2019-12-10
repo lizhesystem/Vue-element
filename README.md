@@ -1,7 +1,7 @@
 # 问题记录
 项目中新接触的知识点
 ---
-1. vue-cli的使用和搭建,还可以玩图形界面。
+1. vue-cli的使用和搭建,还可以玩图形界面执行vue ui。
 2. 整体项目搭建部分和之前的商场项目一样,单页面应用一个App.vue里加载一个`<router-view></router-view>`剩下的都渲染进去,
 在main.js的vue对象里render后再`.$mount`来实现挂载index.html的app类后再挂载app组件。需要注意的点:
     - 使用一个全局的global.css来渲染#app的样式,铺满。

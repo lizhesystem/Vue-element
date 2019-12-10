@@ -299,9 +299,9 @@
                     const {data: res} = await this.axios.post('goods', form);
                     if (res.meta.status !== 201) return this.$message.error("添加商品失败");
 
-                    this.$message.succes("添加商品成功");
+                    this.$message.success("添加商品成功");
                     // 编程式导航跳转到商品列表
-                    this.$router.push('/goods')
+                    this.$router.push('/goods');
                 })
             }
         },

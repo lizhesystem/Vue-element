@@ -27,7 +27,7 @@ body,
 }
 /*公共属性写这里了*/
 .el-cascader-panel {
-    height: 400px;
+    height: 200px;
 }
 .zk-table__header{
     font-size: 10px;

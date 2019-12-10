@@ -25,8 +25,12 @@ Vue.use(VueQuillEditor);
 
 // 导入三方的table-tree插件
 import TreeTable from 'vue-table-with-tree-grid'
-
 Vue.component('tree-table', TreeTable);
+
+// 导入进度条插件
+import NProgress from 'nprogress'
+//导入进度条样式
+import 'nprogress/nprogress.css'
 
 Vue.use(VueAxios, axios);
 // axios公共基路径，以后所有的请求都会在前面加上这个路径
@@ -38,10 +42,19 @@ axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/';
 // 接口文档要求 ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌,才能访问数据
 // axios的请求拦截器
 axios.interceptors.request.use(config => {
-    // eslint-disable-next-line no-console
+    //当进入request拦截器，表示发送了请求，我们就开启进度条
+    NProgress.start();
     config.headers.Authorization = window.sessionStorage.getItem('token');
     return config
 });
+
+axios.interceptors.response.use(config => {
+    //当进入response拦截器，表示请求已经结束，我们就结束进度条
+    NProgress.done();
+    return config
+});
+
+
 
 // 公共的过滤器
 Vue.filter('dateFormat', function (originVal) {
