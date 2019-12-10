@@ -87,10 +87,14 @@
                             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                         </el-upload>
                     </el-tab-pane>
-                    <el-tab-pane label="商品内容" name="4"></el-tab-pane>
+                    <el-tab-pane label="商品内容" name="4">
+                        <!--商品描述富文本编辑器区域-->
+                        <quill-editor v-model="addForm.goods_introduce"></quill-editor>
+                        <!-- 添加商品的按钮 -->
+                        <el-button type="primary" class="btnAdd" @click="add">添加商品</el-button>
+                    </el-tab-pane>
                 </el-tabs>
             </el-form>
-
         </el-card>
 
 
@@ -102,6 +106,9 @@
 </template>
 
 <script>
+    // eslint-disable-next-line no-unused-vars
+    import _ from 'lodash';
+
     export default {
         name: "add",
         data() {
@@ -135,7 +142,7 @@
                     // 商品的详情描述介绍
                     goods_introduce: '',
                     // 商品的动态/静态属性
-                    attrs: []
+                    attrs: [],
                 },
                 addFormRules: {
                     goods_name: [
@@ -267,6 +274,35 @@
                     return false;
                 }
                 return true
+            },
+            //添加商品的提交方法
+            add() {
+                this.$refs.addFormRef.validate(async valid => {
+                    if (!valid) return this.$message.error("请填写必要的表单项");
+                    // 执行添加的业务逻辑
+                    // 如果直接提交addForm的话会出现异常，因为v-model绑定的attr_vals和需要提交的不一样,使用cloneDeep工具深拷贝一份form对象再提交
+                    //将addForm进行深拷贝，避免goods_cat数组转换字符串之后导致级联选择器报错
+                    const form = _.cloneDeep(this.addForm);
+                    // 将商品所选的所属分类转换成字符串形式
+                    form.goods_cat = form.goods_cat.join(",");
+                    // 处理attrs数组，数组中包含静态属性/动态参数
+                    // 动态参数添加到attrs里
+                    this.manyTableData.forEach(item => {
+                        form.attrs.push({attr_id: item.attr_id, attr_value: item.attr_vals.join(" ")})
+                    });
+                    // 静态参数添加到attrs里
+                    this.onlyTableData.forEach(item => {
+                        form.attrs.push({attr_id: item.attr_id, attr_value: item.attr_vals})
+                    });
+
+                    // 数据处理完发送请求
+                    const {data: res} = await this.axios.post('goods', form);
+                    if (res.meta.status !== 201) return this.$message.error("添加商品失败");
+
+                    this.$message.succes("添加商品成功");
+                    // 编程式导航跳转到商品列表
+                    this.$router.push('/goods')
+                })
             }
         },
         computed: {
@@ -281,12 +317,16 @@
     }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
     .el-alert {
         margin-bottom: 18px;
     }
 
     .el-checkbox {
         margin: 0 10px 10px 0 !important;
+    }
+
+    .btnAdd {
+        margin-top: 20px;
     }
 </style>

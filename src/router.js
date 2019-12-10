@@ -10,6 +10,8 @@ import Cate from "./components/goods/cate.vue"
 import Params from "./components/goods/params.vue"
 import GoodLists from "./components/goods/goodlist.vue"
 import Add from "./components/goods/add.vue"
+import orders from "./components/order/orders.vue"
+import Report from "./components/report/report.vue"
 
 Vue.use(VueRouter);
 // 路由对象
@@ -27,7 +29,10 @@ const router = new VueRouter({
                 {path: '/categories', component: Cate},
                 {path: '/params', component: Params},
                 {path: '/goods', component: GoodLists},
-                {path: '/goods/add', component: Add}
+                {path: '/goods/add', component: Add},
+                {path: '/orders', component: orders},
+                {path: '/reports', component: Report},
+
             ]
         }
     ]

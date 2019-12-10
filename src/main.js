@@ -13,6 +13,16 @@ import './assets/fonts/iconfont.css'
 // 导入axios,axios不是一个插件所以不能Vue.use使用，vue-axios是个插件。
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+
+// 导入富文本编辑器editor
+import VueQuillEditor from 'vue-quill-editor'
+// require styles
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+Vue.use(VueQuillEditor);
+
 // 导入三方的table-tree插件
 import TreeTable from 'vue-table-with-tree-grid'
 
